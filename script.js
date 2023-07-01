@@ -1,114 +1,70 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 let length;
-const upCaseletters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+const lowCaseletters = 'abcdefghijklmnopqrstuvwxyz'
+const upCaseletters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const intOptions = '0123456789';
+const specialList = '!"#$%&()*+,-./:;<=>?@[\]^_`{|}~';
 
-let word = 'adklfhsdkghghghghgh';
-console.log(word[0]);
-
-let wordUpper = word.toUpperCase();
-console.log(wordUpper);
-
-let charBank = '';
 
 // here I will define generatePassword function
 function generatePassword() {
-
-
-// use a do-while loop, in a nested function, to prompt for a number and reject a value less than min and greater than max
-
-function promptLength(min, max) {
-  length;
-  do {
-    length = prompt('How many characters do you want to contain in your password?\nChose a number between 8 and 128');
+  let charBank = '';
   
-  } while (isNaN(length) || parseInt(length, 10) < 8 || parseInt(length, 10) > 128);
-  return parseInt(length, 10);
-  
+
+let passwordLength = prompt("How many characters do you want to contain in your password?\nChose a number between 8 and 128");
+if(passwordLength < 8 || passwordLength > 128) {
+  alert("Try Again.")
+  return;
 }
-
- let passwordLength = promptLength(8, 128)
- console.log(passwordLength);
-
-// now we have the desired length
-// works in the console
-
-
-// at the end do I math.floor ... * all varibles to randomize all?
-
-
-
+console.log(passwordLength);
 
 
 
 let low = confirm('Inclue lowercase letters?');
-// found code snippet online, don't know arow functions, rather than typing aplphabet from a-z
-const lowCaseletters = (() => {
-  const caps = [...Array(26)].map((val, i) => String.fromCharCode(i + 65));
-  return caps.map(letter => letter.toLowerCase());
-})();
-
-if(low) {
-
-console.log('before: ' + charBank);
-charBank = charBank + word;
-console.log('after', charBank );
-console.log('after ' + charBank );
-// let lowLettersIndex = Math.floor(Math.random() * lowCaseletters.length);
-// let lowLettersDisplay = lowCaseletters[lowLettersIndex];
-// console.log(lowLettersDisplay);
-// works in the console 
-}
-
-
-
-
-
 let upper = confirm('Include uppercase letters?');
+let integer = confirm('include a numeric value?');
+let special = confirm('Include special characters?');
+
+do {
+  
+if(low) {
+let lowLettersIndex = Math.floor(Math.random() * lowCaseletters.length);
+let lowLettersDisplay = lowCaseletters[lowLettersIndex];
+console.log(lowLettersDisplay);
+charBank = charBank + lowLettersDisplay;
+} 
 
 if(upper) {
   let upIndexLetters = Math.floor(Math.random() * upCaseletters.length);
   let upCaseDisplay = upCaseletters[upIndexLetters];
   console.log(upCaseDisplay); 
-  // works
-}
+  charBank = charBank + upCaseDisplay;
 
+} 
 
-
-
-let integer = confirm('include a numeric value?');
-const intOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 if(integer) {
-  console.log('before: ' + charBank);
-  charBank = charBank + intOptions;
-  console.log('after: ' + charBank);
-  // let intIndex = Math.floor( Math.random() * intOptions.length);
-  // let intDisplay = intOptions[intIndex];
-  // console.log(intDisplay);
+  let intIndex = Math.floor( Math.random() * intOptions.length);
+  let intDisplay = intOptions[intIndex];
+  console.log(intDisplay);
+  charBank = charBank + intDisplay;
+
+} 
+
+if(special) {
+  let specialIndex = Math.floor(Math.random() * specialList.length);
+  let specialDisplay = specialList[specialIndex];
+  console.log(specialDisplay);
+  charBank = charBank + specialDisplay;
 }
-for(let i = 0; i < passwordLength; i++) {
-  console.log(charBank[i]);
+} while (charBank.length < passwordLength);
+
+console.log(charBank);
+// displays in sets of 4. Ex: input of 8 == 8, while input of 9 == 12 character set
+return charBank;
 }
-
-
-// let special = confirm('Include special characters?');
-// const specialList = ['!', '”', '#', '$', '%', '&', "'", '(', ')',
-//  '*', '+', ',', '-', '.', '/', ';', ':', '<', '=', '>', '?', '@', 
-//  '[', '\ fix?', ']', '^', '_', '`', '{', '|', '}', '~'];
-
-// if(special) {
-//   let specialIndex = Math.floor(math.random() * specialList.length);
-//   let specialDisplay = specialList[specialIndex];
-//   console.log(specialDisplay);
-// // function runs when i comment out snippet for special characters
-// }
-
-}
-
-
 
 // Write password to the #password input
-// generatePassword is undefined so I have to define it
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
@@ -121,4 +77,5 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-generatePassword();
+writePassword();
+
