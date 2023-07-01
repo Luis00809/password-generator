@@ -7,13 +7,26 @@ const intOptions = '0123456789';
 const specialList = '!"#$%&()*+,-./:;<=>?@[\]^_`{|}~';
 
 
-// here I will define generatePassword function
+
+
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+
+  passwordText.value = password;
+
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
+
 function generatePassword() {
   let charBank = '';
   
-
 let passwordLength = prompt("How many characters do you want to contain in your password?\nChose a number between 8 and 128");
-if(passwordLength < 8 || passwordLength > 128) {
+if(passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength) ) {
   alert("Try Again.")
   return;
 }
@@ -57,25 +70,17 @@ if(special) {
   console.log(specialDisplay);
   charBank = charBank + specialDisplay;
 }
+
+if(charBank == '') {
+  alert('Please select from the options provided.')
+  return;
+}
 } while (charBank.length < passwordLength);
 
 console.log(charBank);
 // displays in sets of 4. Ex: input of 8 == 8, while input of 9 == 12 character set
 return charBank;
 }
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-
-  passwordText.value = password;
-
-}
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
 
 writePassword();
 
