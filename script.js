@@ -1,4 +1,3 @@
-// Assignment Code
 var generateBtn = document.querySelector("#generate");
 let length;
 const lowCaseletters = 'abcdefghijklmnopqrstuvwxyz'
@@ -20,7 +19,7 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+// generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
   let charBank = '';
@@ -39,48 +38,38 @@ let upper = confirm('Include uppercase letters?');
 let integer = confirm('include a numeric value?');
 let special = confirm('Include special characters?');
 
-do {
-  
+
 if(low) {
-let lowLettersIndex = Math.floor(Math.random() * lowCaseletters.length);
-let lowLettersDisplay = lowCaseletters[lowLettersIndex];
-console.log(lowLettersDisplay);
-charBank = charBank + lowLettersDisplay;
+charBank = charBank + lowCaseletters;
 } 
 
 if(upper) {
-  let upIndexLetters = Math.floor(Math.random() * upCaseletters.length);
-  let upCaseDisplay = upCaseletters[upIndexLetters];
-  console.log(upCaseDisplay); 
-  charBank = charBank + upCaseDisplay;
-
+  charBank = charBank + upCaseletters;
 } 
 
 if(integer) {
-  let intIndex = Math.floor( Math.random() * intOptions.length);
-  let intDisplay = intOptions[intIndex];
-  console.log(intDisplay);
-  charBank = charBank + intDisplay;
-
+  charBank = charBank + intOptions;
 } 
 
 if(special) {
-  let specialIndex = Math.floor(Math.random() * specialList.length);
-  let specialDisplay = specialList[specialIndex];
-  console.log(specialDisplay);
-  charBank = charBank + specialDisplay;
+  charBank = charBank + specialList;
 }
 
 if(charBank == '') {
   alert('Please select from the options provided.')
   return;
 }
-} while (charBank.length < passwordLength);
 
-console.log(charBank);
-// displays in sets of 4. Ex: input of 8 == 8, while input of 9 == 12 character set
-return charBank;
+let charDisplay = "";
+for(let i = 0; i < passwordLength; i++) {
+    let charIndex = Math.floor(Math.random() * charBank.length);
+    charDisplay += charBank[charIndex];
+    console.log(charDisplay);
 }
 
-writePassword();
+console.log(charDisplay);
+return charDisplay;
+}
 
+
+generateBtn.addEventListener("click", writePassword);
